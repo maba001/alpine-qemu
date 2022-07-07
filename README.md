@@ -17,7 +17,7 @@ Besides that the following Windows versions have been installed on the MS-DOS 6.
 - Microsoft Windows 3.1
 - Microsoft Windows 3.11
 
-Both projects, this one and the sister project called `alpine-qemu` are now maintained in parallel.
+Both projects, this one and the sister project called `debian-qemu` are now maintained in parallel.
 Alpine gives a smaller container footprint and a newer version of QEMU. Debian is based on the latest
 stable release of Debian and therefore typically a few QEMU versions behind Alpine. Both containers work
 equally well and of course the QCOW2 files containing the actual OS, can be interchanged between the two.
