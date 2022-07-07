@@ -1,10 +1,8 @@
-# debian-qemu (previously debian-qemu)
+# alpine-qemu
 
-The original purpose was to implement a way to run **ancient** Intel x86 based operating systems inside an OCI container (docker / podman). In the meantime it has grown a little bit more generic. This is why the repository was renamed to 
-**debian-qemu**.
+The original version of this container was built with Debian to run **ancient** Intel x86 based operating systems inside an OCI container (docker / podman).
 
-The original purpose of running ancient OSs and providing a showcase for educational purposes, of what OSs looked
-like in the 1980-ies and 1990-ies works well.
+This new Dockerfile implementation based on Alpine now works equally well.
 
 The following OSs have been successfully bootstrapped to virtual hard disks (VHDs) in the QCOW2 format:
 - MS-DOS 3.2 (HP branded)
@@ -19,8 +17,9 @@ Besides that the following Windows versions have been installed on the MS-DOS 6.
 - Microsoft Windows 3.1
 - Microsoft Windows 3.11
 
-In the meantime after giving it some thought, I also came up with a sister project called `alpine-qemu`.
-The idea was to have a smaller container footprint and to use newer versions of QEMU. Both containers work
+Both projects, this one and the sister project called `alpine-qemu` are now maintained in parallel.
+Alpine gives a smaller container footprint and a newer version of QEMU. Debian is based on the latest
+stable release of Debian and therefore typically a few QEMU versions behind Alpine. Both containers work
 equally well and of course the QCOW2 files containing the actual OS, can be interchanged between the two.
 
 ## Purpose
@@ -39,7 +38,7 @@ happy using a WSL2 based Linux distro to fire up all my virtualized OSs.
 
 ## Concept
 
-- OCI container image based on Debian Linux
+- OCI container image based on Alpine Linux
 - qemu running inside the container
 - some helper tools and scripts
 
@@ -52,10 +51,10 @@ or
 
 Then tag the resulting image as you like
 
-    podman tag <image hash> debian-qemu:1.0
+    podman tag <image hash> alpine-qemu:1.0
 or
 
-    docker tag <image hash> debian-qemu:1.0
+    docker tag <image hash> alpine-qemu:1.0
 
 ## Usage
 
@@ -68,7 +67,7 @@ Example:
     -p 2323:2323 \
     -v /host-machine/some-floppy-path:/tmp/floppies \
     -v /host-machine/some-hdimg-path:/tmp/images \
-    debian-qemu:1.0
+    alpine-qemu:1.0
 
 Some wrapper shell scripts are included. They illustrate how to work with the container. The GUI of the image / the screen is exposed via VNC on display :1 (= port 5901). The qemu monitor port is exposed via telnet on port 2323. Via the qemu monitor, you are able to control the virtual machine running inside the container.
 
@@ -83,6 +82,10 @@ Some wrapper shell scripts are included. They illustrate how to work with the co
 
 additional QEMU command line parameters can be found in the example files under `/usr/local/bin`.
 
+Side note: qemu also supports the SPICE protocol which is more modern than VNC. Good viewers are either TigerVNC 
+(any other VNC client works as well) or "remote viewer" from the Redhat KVM project. The latter one has a pretty good
+tracking of the mouse cursor when used with the SPICE protocol.
+
 ## qemu monitor commands needed for bootstrapping
 
 | qemu command | used for                                   |
@@ -90,6 +93,10 @@ additional QEMU command line parameters can be found in the example files under 
 | `change floppy0 <path-to-floppy-img>` | virtually insert or change a floppy |
 | `system_reset` | re-boot the VM |
 | `eject floppy0` | remove floppy from floppy drive |
+
+As a client for the monitor port, you can use "Putty" with the Telnet protocol or you can install a telnet
+client into your WSL Linux Distro and just do `telnet localhost 2323`. This will bring you directly to
+the QEMU monitor command line.
 
 ### bootstrapping strategy
 
