@@ -1,5 +1,7 @@
 # alpine-qemu
 
+[![Container Repository on Quay: Alpine Qemu](https://quay.io/repository/mbayreut/alpine-qemu/status "Container Repository on Quay: Alpine Qemu")](https://quay.io/repository/mbayreut/alpine-qemu)
+
 The original version of this container was built with Debian to run **ancient** Intel x86 based operating systems inside an OCI container (docker / podman).
 
 This new Dockerfile implementation based on Alpine now works equally well.
