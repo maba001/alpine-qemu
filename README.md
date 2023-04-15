@@ -65,11 +65,11 @@ To prepare your working qemu hard disk image, you need some boot floppy images t
 Example:
 
     podman run -it --rm \
-    -p 5901:5901 \
-    -p 2323:2323 \
-    -v /host-machine/some-floppy-path:/tmp/floppies \
+    -p 5901:5901 -p 2323:2323 -p 6001:6001 \
     -v /host-machine/some-hdimg-path:/tmp/images \
-    alpine-qemu:1.0
+    -v /host-machine/some-floppy-path:/opt/floppies \
+    -v /host-machine/some-path/external-mount:/opt/external-mount \
+    quay.io/mbayreut/alpine-qemu:3-2023-04
 
 Some wrapper shell scripts are included. They illustrate how to work with the container. The GUI of the image / the screen is exposed via VNC on display :1 (= port 5901). The qemu monitor port is exposed via telnet on port 2323. Via the qemu monitor, you are able to control the virtual machine running inside the container.
 
