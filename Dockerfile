@@ -4,8 +4,7 @@ RUN apk update \
  && apk upgrade \
  && apk add --no-cache bash busybox-extras \
  qemu-system-x86_64 qemu-system-i386 qemu-img  \
- qemu-audio-spice qemu-chardev-spice qemu-ui-spice-app qemu-ui-spice-core qemu-ui-sdl qemu-ui-gtk \
- mesa-dri-nouveau mesa-dri-swrast mesa-dri-vmwgfx \
+ qemu-audio-spice qemu-chardev-spice qemu-ui-spice-app qemu-ui-spice-core \
  && rm -vrf /var/cache/apk/*
 
 COPY /src/root/ /root/
