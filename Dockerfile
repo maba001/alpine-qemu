@@ -2,7 +2,7 @@ FROM alpine:3
 
 RUN apk update \
  && apk upgrade \
- && apk add bash busybox-extras \
+ && apk add --no-cache bash busybox-extras \
  qemu-system-x86_64 qemu-system-i386 qemu-img  \
  qemu-audio-spice qemu-chardev-spice qemu-ui-spice-app qemu-ui-spice-core \
  && rm -vrf /var/cache/apk/*
